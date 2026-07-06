@@ -1,0 +1,22 @@
+{
+  "title": "pqc-bench: homogeneous-stack post-quantum cryptography benchmarks",
+  "description": "Reproducible benchmarks of NIST post-quantum signatures and KEMs against real protocol budgets on one homogeneous OpenSSL 3.5 + liboqs stack. First domain: IEC 61850 GOOSE (3 ms TT6 transfer time and a single non-fragmented Ethernet frame), measured on x86, Cortex-A72, and the Cortex-M protection spectrum (M0+/M4F/M7), with per-iteration raw samples for every number.",
+  "upload_type": "software",
+  "access_right": "open",
+  "license": "Apache-2.0",
+  "creators": [
+    {"name": "Blackcycle Lab"}
+  ],
+  "keywords": [
+    "post-quantum cryptography",
+    "IEC 61850",
+    "GOOSE",
+    "IEC 62351-6",
+    "benchmark",
+    "ML-DSA",
+    "Falcon",
+    "ML-KEM",
+    "Cortex-M",
+    "substation automation"
+  ]
+}

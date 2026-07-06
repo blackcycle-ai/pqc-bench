@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pqc-bench"
+version = "0.1.0"
+description = "Dimension-agnostic, homogeneous-stack benchmark of PQC signatures against real-protocol budgets (V2X, IEC 61850 GOOSE, ...)"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+requires-python = ">=3.10"
+authors = [{ name = "Blackcycle Lab", email = "research@blackcycle.ai" }]
+keywords = ["post-quantum", "cryptography", "benchmark", "ML-DSA", "Falcon", "SLH-DSA", "V2X", "IEC 61850", "GOOSE"]
+
+# Core measurement deps. The HOMOGENEOUS backend (preferred for papers) is the C
+# harness in harness/, which links one OpenSSL 3.5 libcrypto + oqs-provider; see
+# env/. The python deps below drive the CLI, schema and a portable fallback path.
+dependencies = [
+    "liboqs-python>=0.15",
+    "cryptography>=42",
+    "tabulate>=0.9",
+    "typer>=0.12",
+    "numpy>=1.24",
+    "matplotlib>=3.7",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[project.scripts]
+pqc-bench = "pqc_bench.cli:app"
+
+[project.urls]
+Homepage = "https://blackcycle.ai"
+Repository = "https://github.com/blackcycle-ai/pqc-bench"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
