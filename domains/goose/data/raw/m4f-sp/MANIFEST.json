@@ -1,0 +1,166 @@
+{
+  "experiment": "H-GOOSE-CMP-08 \u2014 PQC signatures on protection-class Cortex-M",
+  "date": "2026-06-29/30",
+  "board": {
+    "name": "STM32F407 Discovery",
+    "core": "Cortex-M4F",
+    "fpu": "single-precision (fpv4-sp-d16)",
+    "chipid": "0x0413",
+    "flash_KB": 1024,
+    "ram_KB": 192
+  },
+  "toolchain": {
+    "gcc": "arm-none-eabi-gcc 10.3.1 (15:10.3-2021.07-4)",
+    "openocd": "0.11.0",
+    "stlink": "stlink-tools",
+    "pqm4_commit": "cc2c1b9"
+  },
+  "method": {
+    "framework": "pqm4",
+    "readout": "ARM semihosting (SYS_WRITE0/BKPT 0xAB), HAL patched",
+    "clocks": {
+      "speed/stack/hashing": "CLOCK_BENCHMARK 24 MHz (flash-WS-free)",
+      "speedfast/dudect": "CLOCK_FAST 168 MHz (deployment, with flash wait-states)"
+    },
+    "time_reporting": "cycles@24MHz (flash-WS-free, pqm4-standard) for cross-impl comparison; speedfast measures the real 168MHz wall-clock directly (the paper Table 3 uses this). The p99 (rejection-tailed) converted vs measured agree (~1.0, e.g. ML-DSA-65 109 vs 108 ms); p50 differs by ~1.1-1.3x (flash wait-states). The earlier ~2.5x note was wrong."
+  },
+  "schemes": [
+    "ml-dsa-44 m4f",
+    "ml-dsa-65 m4f",
+    "fndsa_provisional-512 m4f (Falcon FPU-opt)",
+    "falcon-512 clean (PQClean FP-emul ref)",
+    "sphincs-sha2-128f-simple clean",
+    "sphincs-sha2-128s-simple clean"
+  ],
+  "dudect": {
+    "tool": "dudect (Reparaz et al. 2017), Welch t-test",
+    "modes": [
+      "fix-vs-random message",
+      "fix-vs-second-key"
+    ],
+    "threshold": "|t| > 4.5 = leak",
+    "result": "max |t| < 2.1 across all 4 tests, N~1800-2080 \u2014 NO leak"
+  },
+  "measurements": [
+    {
+      "file": "falcon-512_clean_dudect.csv",
+      "samples": 590
+    },
+    {
+      "file": "falcon-512_clean_dudect_key.csv",
+      "samples": 1770
+    },
+    {
+      "file": "falcon-512_clean_dudect_msg.csv",
+      "samples": 1770
+    },
+    {
+      "file": "falcon-512_clean_hashing.csv",
+      "samples": 1
+    },
+    {
+      "file": "falcon-512_clean_speed.csv",
+      "samples": 30
+    },
+    {
+      "file": "falcon-512_clean_speedfast.csv",
+      "samples": 30
+    },
+    {
+      "file": "falcon-512_clean_stack.csv",
+      "samples": 1
+    },
+    {
+      "file": "fndsa_provisional-512_m4f_dudect.csv",
+      "samples": 346
+    },
+    {
+      "file": "fndsa_provisional-512_m4f_dudect_key.csv",
+      "samples": 2082
+    },
+    {
+      "file": "fndsa_provisional-512_m4f_dudect_msg.csv",
+      "samples": 2079
+    },
+    {
+      "file": "fndsa_provisional-512_m4f_hashing.csv",
+      "samples": 1
+    },
+    {
+      "file": "fndsa_provisional-512_m4f_speed.csv",
+      "samples": 50
+    },
+    {
+      "file": "fndsa_provisional-512_m4f_speedfast.csv",
+      "samples": 30
+    },
+    {
+      "file": "fndsa_provisional-512_m4f_stack.csv",
+      "samples": 1
+    },
+    {
+      "file": "ml-dsa-44_m4f_hashing.csv",
+      "samples": 1
+    },
+    {
+      "file": "ml-dsa-44_m4f_speed.csv",
+      "samples": 466
+    },
+    {
+      "file": "ml-dsa-44_m4f_speedfast.csv",
+      "samples": 30
+    },
+    {
+      "file": "ml-dsa-44_m4f_stack.csv",
+      "samples": 1
+    },
+    {
+      "file": "ml-dsa-65_m4f_hashing.csv",
+      "samples": 1
+    },
+    {
+      "file": "ml-dsa-65_m4f_speed.csv",
+      "samples": 731
+    },
+    {
+      "file": "ml-dsa-65_m4f_speedfast.csv",
+      "samples": 30
+    },
+    {
+      "file": "ml-dsa-65_m4f_stack.csv",
+      "samples": 1
+    },
+    {
+      "file": "sphincs-sha2-128f-simple_clean_hashing.csv",
+      "samples": 1
+    },
+    {
+      "file": "sphincs-sha2-128f-simple_clean_speed.csv",
+      "samples": 20
+    },
+    {
+      "file": "sphincs-sha2-128f-simple_clean_speedfast.csv",
+      "samples": 30
+    },
+    {
+      "file": "sphincs-sha2-128f-simple_clean_stack.csv",
+      "samples": 1
+    },
+    {
+      "file": "sphincs-sha2-128s-simple_clean_hashing.csv",
+      "samples": 1
+    },
+    {
+      "file": "sphincs-sha2-128s-simple_clean_speed.csv",
+      "samples": 4
+    },
+    {
+      "file": "sphincs-sha2-128s-simple_clean_speedfast.csv",
+      "samples": 27
+    },
+    {
+      "file": "sphincs-sha2-128s-simple_clean_stack.csv",
+      "samples": 1
+    }
+  ]
+}

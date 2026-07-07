@@ -1,0 +1,20 @@
+{
+  "experiment": "Cortex-M0+ spectrum anchor (worst case)",
+  "board": {
+    "name": "Raspberry Pi Pico RP2040",
+    "core": "Cortex-M0+",
+    "fpu": "none",
+    "clock_MHz": 125,
+    "flash_KB": 2048,
+    "ram_KB": 264
+  },
+  "toolchain": {
+    "gcc": "arm-none-eabi-gcc 10.3.1",
+    "sdk": "pico-sdk",
+    "flash": "uf2 via BOOTSEL",
+    "readout": "USB CDC /dev/ttyACM"
+  },
+  "impls": "PQClean clean (M0+ has no DSP/FPU; m4f impls don't run)",
+  "cycle_counter": "SysTick (no DWT on ARMv6-M)",
+  "note": "Anchors the spectrum low end (1-2 schemes), not a full campaign \u2014 M0+ is obvious-worst + brutally slow"
+}

@@ -1,0 +1,18 @@
+{
+  "scheme": "FN-DSA-512 (Falcon)",
+  "impl": "pqm4 fndsa_provisional-512 m4f (uses single-precision FPU)",
+  "board": "STM32F407 Discovery",
+  "core": "Cortex-M4F",
+  "fpu": "FPv4-SP (single precision)",
+  "clock_hz": 168000000,
+  "measurement": "pqm4 speed test, single run, semihosting readout",
+  "keygen_cycles": 81988421,
+  "sign_cycles": 21979234,
+  "verify_cycles": 378607,
+  "keygen_ms": 488.0,
+  "sign_ms": 130.8,
+  "verify_ms": 2.25,
+  "goose_tt6_budget_ms": 3.0,
+  "verdict": "sign 130.8 ms = 44x over the 3 ms GOOSE budget; verify 2.25 ms fits. Falcon SIGNING is infeasible on M4F-class protection silicon.",
+  "date": "2026-06-29"
+}
