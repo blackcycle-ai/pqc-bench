@@ -1,0 +1,3 @@
+{"alg":"ML-DSA-44","N":10000,"warmup":500,"msglen":107,"sig_bytes":2420,"pub_bytes":1312,"out":"data/raw/aarch64_liboqs/ML-DSA-44.csv"}
+{"alg":"ML-DSA-65","N":10000,"warmup":500,"msglen":107,"sig_bytes":3309,"pub_bytes":1952,"out":"data/raw/aarch64_liboqs/ML-DSA-65.csv"}
+{"alg":"Falcon-512","N":10000,"warmup":500,"msglen":107,"sig_bytes":657,"pub_bytes":897,"out":"data/raw/aarch64_liboqs/Falcon-512.csv"}

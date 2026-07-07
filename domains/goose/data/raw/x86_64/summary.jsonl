@@ -1,0 +1,8 @@
+{"alg":"EC","N":10000,"warmup":500,"msglen":107,"sig_bytes":71,"pub_bytes":65,"out":"data/raw/x86_64/EC.csv"}
+{"alg":"ML-DSA-44","N":10000,"warmup":500,"msglen":107,"sig_bytes":2420,"pub_bytes":1312,"out":"data/raw/x86_64/ML-DSA-44.csv"}
+{"alg":"ML-DSA-65","N":10000,"warmup":500,"msglen":107,"sig_bytes":3309,"pub_bytes":1952,"out":"data/raw/x86_64/ML-DSA-65.csv"}
+{"alg":"falcon512","N":10000,"warmup":500,"msglen":107,"sig_bytes":653,"pub_bytes":897,"out":"data/raw/x86_64/falcon512.csv"}
+{"alg":"p256_mldsa44","N":10000,"warmup":500,"msglen":107,"sig_bytes":2495,"pub_bytes":1381,"out":"data/raw/x86_64/p256_mldsa44.csv"}
+{"alg":"p256_falcon512","N":10000,"warmup":500,"msglen":107,"sig_bytes":727,"pub_bytes":966,"out":"data/raw/x86_64/p256_falcon512.csv"}
+{"alg":"SLH-DSA-SHA2-128f","N":1000,"warmup":50,"msglen":107,"sig_bytes":17088,"pub_bytes":32,"out":"data/raw/x86_64/SLH-DSA-SHA2-128f.csv"}
+{"alg":"SLH-DSA-SHA2-128s","N":200,"warmup":20,"msglen":107,"sig_bytes":7856,"pub_bytes":32,"out":"data/raw/x86_64/SLH-DSA-SHA2-128s.csv"}

@@ -1,0 +1,5 @@
+{"alg":"ML-DSA-44","N":10000,"warmup":500,"msglen":107,"sig_bytes":2420,"pub_bytes":1312,"out":"data/raw/x86_64_liboqs/ML-DSA-44.csv"}
+{"alg":"ML-DSA-65","N":10000,"warmup":500,"msglen":107,"sig_bytes":3309,"pub_bytes":1952,"out":"data/raw/x86_64_liboqs/ML-DSA-65.csv"}
+{"alg":"Falcon-512","N":10000,"warmup":500,"msglen":107,"sig_bytes":656,"pub_bytes":897,"out":"data/raw/x86_64_liboqs/Falcon-512.csv"}
+{"alg":"SPHINCS+-SHA2-128f-simple","N":1000,"warmup":50,"msglen":107,"sig_bytes":17088,"pub_bytes":32,"out":"data/raw/x86_64_liboqs/SPHINCS_-SHA2-128f-simple.csv"}
+{"alg":"SPHINCS+-SHA2-128s-simple","N":200,"warmup":20,"msglen":107,"sig_bytes":7856,"pub_bytes":32,"out":"data/raw/x86_64_liboqs/SPHINCS_-SHA2-128s-simple.csv"}

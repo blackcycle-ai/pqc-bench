@@ -1,0 +1,12 @@
+{
+  "host_label": "x86_64",
+  "arch": "x86_64",
+  "kernel": "6.8.0-111-generic",
+  "cpu": "13th Gen Intel(R) Core(TM) i7-13620H",
+  "pinned_core": 3,
+  "openssl": "OpenSSL 3.5.6 7 Apr 2026 (Library: OpenSSL 3.5.6 7 Apr 2026)",
+  "liboqs": "0.15.0",
+  "msg_len_bytes": 107,
+  "date": "2026-06-13T12:21:20Z",
+  "thermal_note": "see thermal log if constrained hardware"
+}
