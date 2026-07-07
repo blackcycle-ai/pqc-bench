@@ -1,0 +1,63 @@
+diff --git a/common/hal-opencm3.c b/common/hal-opencm3.c
+index 05d7377..db4919b 100644
+--- a/common/hal-opencm3.c
++++ b/common/hal-opencm3.c
+@@ -1,6 +1,17 @@
+ // SPDX-License-Identifier: Apache-2.0 or CC0-1.0
+ #include "hal.h"
+ #include <sys/cdefs.h>
++#ifdef SEMIHOSTING
++/* ARM semihosting SYS_WRITE0 (0x04): print null-terminated string via the debug
++ * probe. Lets us read benchmark output over SWD when the ST-Link VCP is not wired
++ * to the USART (the classic STM32F4DISCOVERY case). Enable in OpenOCD with
++ * "arm semihosting enable". */
++static void semihost_write0(const char *s) {
++  register int op asm("r0") = 0x04;
++  register const char *p asm("r1") = s;
++  asm volatile("bkpt 0xAB" : "+r"(op) : "r"(p) : "memory");
++}
++#endif
+ 
+ #define SERIAL_BAUD 38400
+ 
+@@ -362,12 +373,17 @@ void hal_setup(const enum clock_mode clock)
+ 
+ void hal_send_str(const char* in)
+ {
++#ifdef SEMIHOSTING
++  semihost_write0(in);
++  semihost_write0("\n");
++#else
+   const char* cur = in;
+   while (*cur) {
+     usart_send_blocking(SERIAL_USART, *cur);
+     cur += 1;
+   }
+   usart_send_blocking(SERIAL_USART, '\n');
++#endif
+ }
+ 
+ void sys_tick_handler(void)
+diff --git a/mk/stm32f4discovery.mk b/mk/stm32f4discovery.mk
+index 8e17439..c92e445 100644
+--- a/mk/stm32f4discovery.mk
++++ b/mk/stm32f4discovery.mk
+@@ -18,6 +18,7 @@ EXCLUDED_SCHEMES = \
+ 	crypto_sign/ov-Ip%
+ 
+ include mk/opencm3.mk
++CFLAGS += -DSEMIHOSTING
+ 
+ elf/boardtest.elf: CPPFLAGS+=-DSRAM_TIMING_TEST -DHAS_SRAM2 -DHAS_CCM
+ elf/boardtest-fast.elf: CPPFLAGS+=-DSRAM_TIMING_TEST -DHAS_SRAM2 -DHAS_CCM
+@@ -29,3 +30,10 @@ elf/crypto_sign_perk-256-%_m4_testvectors.elf: LDSCRIPT=ldscripts/stm32f4discove
+ elf/crypto_sign_perk-256-fast%_m4_test.elf: LDSCRIPT=ldscripts/stm32f4discovery_fullram.ld
+ elf/crypto_sign_haetae5_m4f_%.elf: LDSCRIPT=ldscripts/stm32f4discovery_fullram.ld
+ elf/crypto_sign_haetae5_ref_%.elf: LDSCRIPT=ldscripts/stm32f4discovery_fullram.ld
++
++# dudect knobs (Blackcycle): N iterations + key-mode toggle
++DUDECT_N ?= 1000
++CFLAGS += -DMUPQ_DUDECT_ITERS=$(DUDECT_N)
++ifeq ($(DUDECT_KEY),1)
++CFLAGS += -DDUDECT_KEY
++endif
