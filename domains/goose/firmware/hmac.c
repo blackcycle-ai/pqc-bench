@@ -12,7 +12,7 @@
 #include <stdint.h>
 #include <string.h>
 
-#define MLEN 130      /* GOOSE hdr + APDU + 62351-6 session wrapper, per the paper */
+#define MLEN 130      /* GOOSE hdr (8) + APDU (107) + 15 B of the 62351-6 wrapper; SHA-256 cost is block-count-driven, so any 120-183 B message costs the same */
 #define KLEN 32
 #define BLK 64
 
