@@ -1,5 +1,5 @@
 {
-  "experiment": "H-GOOSE-CMP-08 \u2014 PQC signatures on protection-class Cortex-M",
+  "experiment": "H-GOOSE-CMP-08 — PQC signatures on protection-class Cortex-M",
   "date": "2026-06-29/30",
   "board": {
     "name": "STM32F407 Discovery",
@@ -39,9 +39,14 @@
       "fix-vs-second-key"
     ],
     "threshold": "|t| > 4.5 = leak",
-    "result": "max |t| < 2.1 across all 4 tests, N~1800-2080 \u2014 NO leak"
+    "result": "max |t| < 2.1 across all 4 tests, N~1800-2080 — NO leak"
   },
   "measurements": [
+    {
+      "file": "hmac-sha256_speedfast.csv",
+      "samples": 1000,
+      "note": "HMAC-SHA-256 (RFC 2104, PQClean sha2.c) over a 130 B GOOSE-sized message at CLOCK_FAST 168 MHz; firmware/hmac.c. The symmetric path's per-frame MAC cost."
+    },
     {
       "file": "falcon-512_clean_dudect.csv",
       "samples": 590

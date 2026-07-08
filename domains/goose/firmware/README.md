@@ -10,6 +10,7 @@ the collector `../bench_cortexm.py` drives build → flash → semihosting reado
 |---|---|
 | `dudect.c` | Constant-time harness: interleaved fixed-vs-random signing, message mode + `-DDUDECT_KEY` key mode, `DUDECT_N` iterations. Pairs with `../analysis/dudect_ttest.py`. |
 | `speedfast.c` | `speed.c` at `CLOCK_FAST` (168 MHz) instead of `CLOCK_BENCHMARK` (24 MHz) — directly-measured deployment wall-clock with flash wait-states. |
+| `hmac.c` | HMAC-SHA-256 over a 130 B GOOSE-sized message at `CLOCK_FAST` — the symmetric path's per-frame MAC cost, same basis as `speedfast.c`. |
 | `pqm4-cortexm-bench.patch` | Two pqm4 edits: `common/hal-opencm3.c` (route `hal_send_str` to ARM semihosting `SYS_WRITE0` under `-DSEMIHOSTING`, so output reads over SWD without the unwired ST-Link VCP) and `mk/stm32f4discovery.mk` (`-DSEMIHOSTING` + `DUDECT_N`/`DUDECT_KEY` build knobs). |
 
 ## Reproduce (STM32F407 Discovery / Cortex-M4F)
@@ -21,7 +22,7 @@ Toolchain: `arm-none-eabi-gcc` 10.3.1, `openocd` 0.11, `stlink-tools`. pqm4 pinn
 git clone https://github.com/mupq/pqm4 && cd pqm4 && git checkout cc2c1b9
 git submodule update --init --recursive          # libopencm3 + mupq
 git apply /path/to/firmware/pqm4-cortexm-bench.patch
-cp /path/to/firmware/dudect.c /path/to/firmware/speedfast.c mupq/crypto_sign/
+cp /path/to/firmware/dudect.c /path/to/firmware/speedfast.c /path/to/firmware/hmac.c mupq/crypto_sign/
 make PLATFORM=stm32f4discovery libopencm3                # one-time
 ```
 

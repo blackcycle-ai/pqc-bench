@@ -1,0 +1,51 @@
+{
+  "experiment": "H-GOOSE-CMP-08 — PQC signatures on protection-class Cortex-M (M7 point of the spectrum)",
+  "date": "2026-06-30",
+  "board": {
+    "name": "STM32F767ZI Nucleo-144",
+    "core": "Cortex-M7",
+    "fpu": "double-precision (fpv5-d16)",
+    "chipid": "0x0451",
+    "flash_KB": 2048,
+    "ram_KB": 512,
+    "cache": "I/D-cache enabled in the HAL clock block (without it flash fetches double the cycle count)"
+  },
+  "toolchain": {
+    "gcc": "arm-none-eabi-gcc 10.3.1 (15:10.3-2021.07-4)",
+    "openocd": "0.11.0 (target/stm32f7x.cfg)",
+    "stlink": "stlink-tools",
+    "pqm4_commit": "cc2c1b9",
+    "port": "mk/stm32f767zi.mk + STM32F767ZI HAL block (rcc_clock_setup_hsi)"
+  },
+  "method": {
+    "framework": "pqm4",
+    "readout": "ARM semihosting (SYS_WRITE0/BKPT 0xAB), HAL patched",
+    "clocks": {
+      "speed": "CLOCK_BENCHMARK 24 MHz (flash-WS-free)",
+      "speedfast": "CLOCK_FAST 216 MHz (deployment, with flash wait-states)"
+    },
+    "notes": "speedfast_soft/_hard pair verifies -mfpu makes no difference for falcon-512 clean (integer FP emulation never touches the FPU). m4f-named impls are the pqm4 Cortex-M4 asm builds run on the M7."
+  },
+  "schemes": [
+    "ml-dsa-44 m4f",
+    "ml-dsa-65 m4f",
+    "fndsa_provisional-512 m4f (Falcon FPU-opt)",
+    "falcon-512 clean (PQClean FP-emul ref)",
+    "sphincs-sha2-128f-simple clean",
+    "sphincs-sha2-128s-simple clean",
+    "ml-kem-512 m4fspeed"
+  ],
+  "measurements": [
+    { "file": "falcon-512_clean_speed.csv", "samples": 10 },
+    { "file": "falcon-512_clean_speedfast.csv", "samples": 5 },
+    { "file": "falcon-512_clean_speedfast_hard.csv", "samples": 5 },
+    { "file": "falcon-512_clean_speedfast_soft.csv", "samples": 5 },
+    { "file": "fndsa_provisional-512_m4f_speed.csv", "samples": 30 },
+    { "file": "ml-dsa-44_m4f_speed.csv", "samples": 100 },
+    { "file": "ml-dsa-44_m4f_speedfast.csv", "samples": 20 },
+    { "file": "ml-dsa-65_m4f_speed.csv", "samples": 100 },
+    { "file": "ml-kem-512_m4fspeed_speed.csv", "samples": 100 },
+    { "file": "sphincs-sha2-128f-simple_clean_speed.csv", "samples": 5 },
+    { "file": "sphincs-sha2-128s-simple_clean_speed.csv", "samples": 2 }
+  ]
+}
