@@ -1,5 +1,7 @@
 # pqc-bench
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21251796.svg)](https://doi.org/10.5281/zenodo.21251796)
+
 Benchmarks of post-quantum cryptography against protocol timing and size budgets,
 measured on one homogeneous crypto stack. A shared measurement core, one domain per protocol.
 
